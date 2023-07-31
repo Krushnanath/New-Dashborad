@@ -1,0 +1,127 @@
+**to create an image:
+
+docker build -t myimage .
+
+**create containter:
+docker run -it --name Containter myimage /bin/bash	
+
+**too see files in container:
+ls -l
+or you can direct see in files below container tab.
+**exit from container:
+: exit
+** create files by command
+touch file1 file2 file3
+
+**
+to share the containers with other container
+docker run -it --name Containter3 --privileged=true --volumes-from Containter2 myimage2 /bin/bash
+**
+To delete the container:
+docker rm Containter2
+**
+to list the availble container: 
+
+docker ps -a
+
+**
+to start container:
+
+docker start Containter1
+**
+to enter in the container: first start it then below:
+docker attach Containter1
+**
+to stop container
+exit : if you are in the in the container.
+docker stop containername :if out side the container: 
+---
+create container by using host files in it.
+
+docker run -it --name Containter4 -v C:/Users/krushnath.dhongade/Documents/VolumeFolder:/myvolm2/ myimage2 /bin/bash
+
+***update packages in container:
+apt-get update
+and to install:
+apt-get install vim
+
+to get into the file of vi
+vi a.txt
+get out of the file
+:wq!
+
+---
+
+to run command inside the container: 
+docker exec -it containerID <command you want to run>
+***
+current container information:
+cat /etc/os-release
+**to get the path in command line:
+pwd
+
+***
+
+ to create a host volume with container so that we can share the host volume created.S
+PS C:\Users\krushnath.dhongade\Documents\DockerFolder> docker run -it --name hostcontainer -v C:/Users/krushnath.dhongade/Documents/DockerFolder:/hostvol --privileged=true ubuntu /bin/bash
+
+***
+build image from repo to push into azure container registry:
+docker build -t prasadregistry19.azurecr.io/myimage19 .
+-----------
+Push to azure container registry:
+docker push prasadregistry19.azurecr.io/myimage19:latest
+
+
+---------------------------
+Terraform commands
+------------------------------
+Usage: terraform [global options] <subcommand> [args]
+
+The available commands for execution are listed below.
+The primary workflow commands are given first, followed by
+less common or more advanced commands.
+
+Main commands:
+  init          Prepare your working directory for other commands
+  validate      Check whether the configuration is valid
+  plan          Show changes required by the current configuration
+  apply         Create or update infrastructure
+  destroy       Destroy previously-created infrastructure
+
+All other commands:
+  console       Try Terraform expressions at an interactive command prompt
+  fmt           Reformat your configuration in the standard style
+  force-unlock  Release a stuck lock on the current workspace
+  get           Install or upgrade remote Terraform modules
+  graph         Generate a Graphviz graph of the steps in an operation
+  import        Associate existing infrastructure with a Terraform resource
+  login         Obtain and save credentials for a remote host
+  logout        Remove locally-stored credentials for a remote host
+  metadata      Metadata related commands
+  output        Show output values from your root module
+  providers     Show the providers required for this configuration
+  refresh       Update the state to match remote systems
+  show          Show the current state or a saved plan
+  state         Advanced state management
+  taint         Mark a resource instance as not fully functional
+  test          Experimental support for module integration testing
+  untaint       Remove the 'tainted' state from a resource instance
+  version       Show the current Terraform version
+  workspace     Workspace management
+
+Global options (use these before the subcommand, if any):
+  -chdir=DIR    Switch to a different working directory before executing the
+                given subcommand.
+  -help         Show this help output, or the help for a specified subcommand.
+
+--
+terraform plan  : Terraform has compared your real infrastructure against your configuration
+--
+to delete the specific web app: Navigate to the directory containing your Terraform configuration files.
+terraform destroy -target=azurerm_app_service.example-webapp
+---
+to list the created services:
+terraform state list
+----
+ 
