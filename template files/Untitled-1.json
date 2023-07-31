@@ -1,0 +1,136 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        
+        "keyVaultName1": {
+                "type": "String"
+            },
+        "keyVaultName2": {
+                "type": "String"
+        },
+        "location": {
+            "type": "String"
+        },
+        "sku": {
+            "type": "String"
+        },
+        "accessPolicies": {
+            "type": "Array"
+        },
+        "tenant": {
+            "type": "String"
+        },
+        "enabledForDeployment": {
+            "type": "Bool"
+        },
+        "enabledForTemplateDeployment": {
+            "type": "Bool"
+        },
+        "enabledForDiskEncryption": {
+            "type": "Bool"
+        },
+        "enableRbacAuthorization": {
+            "type": "Bool"
+        },
+        "publicNetworkAccess": {
+            "type": "String"
+        },
+        "enableSoftDelete": {
+            "type": "Bool"
+        },
+        "softDeleteRetentionInDays": {
+            "type": "Int"
+        },
+        "networkAcls": {
+            "type": "Object"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2021-10-01",
+            "name": "[parameters('keyVaultName1')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "tags": {},
+            "properties": {
+                "name": "[parameters('keyVaultName1')]",
+                "enabledForDeployment": "[parameters('enabledForDeployment')]",
+                "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+                "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+                "enableRbacAuthorization": "[parameters('enableRbacAuthorization')]",
+                "accessPolicies": "[parameters('accessPolicies')]",
+                "tenantId": "[parameters('tenant')]",
+                "sku": {
+                    "name": "[parameters('sku')]",
+                    "family": "A"
+                },
+                "publicNetworkAccess": "[parameters('publicNetworkAccess')]",
+                "enableSoftDelete": "[parameters('enableSoftDelete')]",
+                "softDeleteRetentionInDays": "[parameters('softDeleteRetentionInDays')]",
+                "networkAcls": "[parameters('networkAcls')]"
+            }
+        },
+
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2022-11-01",
+            "name": "[concat(parameters('keyVaultName1'), '/Dev')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName1'))]"
+            ],
+            "properties": {
+               "value": "Dev@123",
+               "contentType": "string",
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2021-10-01",
+            "name": "[parameters('keyVaultName2')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "tags": {},
+            "properties": {
+                "name": "[parameters('keyVaultName2')]",
+                "enabledForDeployment": "[parameters('enabledForDeployment')]",
+                "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+                "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+                "enableRbacAuthorization": "[parameters('enableRbacAuthorization')]",
+                "accessPolicies": "[parameters('accessPolicies')]",
+                "tenantId": "[parameters('tenant')]",
+                "sku": {
+                    "name": "[parameters('sku')]",
+                    "family": "A"
+                },
+                "publicNetworkAccess": "[parameters('publicNetworkAccess')]",
+                "enableSoftDelete": "[parameters('enableSoftDelete')]",
+                "softDeleteRetentionInDays": "[parameters('softDeleteRetentionInDays')]",
+                "networkAcls": "[parameters('networkAcls')]"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2022-11-01",
+            "name": "[concat(parameters('keyVaultName2'), '/Staging')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName2'))]"
+            ],
+            "properties": {
+               "value": "stage@123",
+               "contentType": "string",
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

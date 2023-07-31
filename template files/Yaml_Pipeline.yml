@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Deploy App Services For Dev/Stage Env '
+  inputs:
+    azureResourceManagerConnection: 'Azure_Devops_Training_ServiceConnection'
+    subscriptionId: 'f545f248-4fb2-4f9c-a0cd-190c842b66d8'
+    resourceGroupName: 'research_development'
+    location: 'East US'
+    csmFile: 'Multiple_App_Service_template.json'
+    csmParametersFile: 'Multiple_App_Service_parameter.json'
+

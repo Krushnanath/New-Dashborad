@@ -1,0 +1,89 @@
+trigger:
+  branches:
+    include:
+    - main
+stages:
+- stage: Build
+  displayName: 'Build UI Code'
+  jobs:
+  - job: BuildUI
+    displayName: 'Build UI Code'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+      displayName: 'Install Node.js'
+    - task: CmdLine@2
+      displayName: 'npm install and build'
+      inputs:
+        script: |
+          npm install
+          npm run build
+    - task: ArchiveFiles@2
+      displayName: 'Generate artifacts'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/Nitish-ui-$(Build.BuildId).zip'
+        replaceExistingArchive: true
+    - task: PublishBuildArtifacts@1
+      displayName: Publish build artifacts
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+- stage: DeployToDev
+  displayName: 'Deployment to Dev'
+  variables:
+  - name: ENVIRONMENT
+    value: 'Development'
+  - name: API URL
+    value: 'https://devreact.com/api/'
+  jobs:
+  - deployment: ''
+    pool:
+      vmImage: 'windows-latest'
+    environment:
+      name: 'Dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure_Devops_Training_ServiceConnection'
+              appType: 'webAppLinux'
+              WebAppName: 'az-training-app-grp2-dev'
+              packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+          - task: CmdLine@2
+            inputs:
+              script: echo "John Wick in $(Develop) "
+- stage: DeployToStage
+  displayName: 'Deployment to Staging'
+  variables:
+  - name: ENVIRONMENT
+    value: 'Staging'
+  - name: API URL
+    value: 'https://stgreact.com/api/'
+  jobs:
+  - deployment: ''
+    pool:
+      vmImage: 'windows-latest'
+    environment:
+      name: 'Staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure_Devops_Training_ServiceConnection'
+              appType: 'webAppLinux'
+              WebAppName: 'az-training-app-grp2-stg'
+              packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+
