@@ -1,0 +1,99 @@
+To use the conditions in between:
+
+{item.length === 0 ? <p>No items.</p> : null}
+or {item.length === 0 && <p>No item found</p>}
+- or you can declare const and use it as the jsx markup
+const message = item.length === 0 ? <p>No items.</p> : null
+ and use it like {message}
+--
+taking onclick event
+- onclick = { () => console.log(item)}
+here we are passing empty function that will only map to console that specific item.
+
+eg, <li className="list-group-"
+-------
+use of useState to make the selection highlight(used bootstrap here) ->
+
+import { useState } from "react";
+
+function ListGroup() {
+  let item = ["Pune", "Nagar", "Mumbai", "Lonavala"];
+ // let selectedIndex = 0;
+  const[selectedIndex, setSelectedIndex] = useState(-1);
+  return (
+    <>
+      <h1>List Group</h1>
+
+      {item.length === 0 && <p>No item found</p>}
+      <ul className="list-group">
+        {item.map((item, index) => (
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {setSelectedIndex(index);}}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+export default ListGroup;
+---------------------------------------
+
+Assingment 1:
+two component, home, write css inline css, create some css file, import. aboutus, try to add conents imgaes, 
+---------------------------
+Assingment2: will create class componenet add image.
+create the props parent component, child component acces it 
+try for the state, this.
+
+-----------------
+create new react bootstrap table component, see the link shared by Rashmita.
+1) take the help from material UI.
+2) at the each row at last there is one more column "Action".
+	That contains two icons, pencil icon to edit the details in row, delete icon
+3)at top right of the table there should be + icon or the add row button, and search icon
+
+--------- React tables --
+
+1) npm install axios bootstrap   as data can be form third party first do this.
+2) npm i react-bootstrap-table-next --save --legacy-peer-deps
+or
+bootstrap has table too and easy to use
+npm install react-bootstrap 
+example: 
+      <Table  className='table table-bordered'>
+
+	<thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {getTableRows()}
+        </tbody>
+
+     </Table>
+
+-- for icons you can use mui by using below command:  
+npm install @mui/icons-material
+--if still icons not working properly try : 
+ npm install @mui/system@latest @mui/styled-engine@latest @mui/icons-material@latest
+>>
+--if still not working properly try below for the mui iocon:
+npm install @emotion/react @emotion/styled
+------------------
+
+
+
+

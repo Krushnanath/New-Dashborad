@@ -1,0 +1,165 @@
+
+
+
+create new project:::: npx create-playwright test-project
+
+username.fill("") ::  works same as .type however, empty string will wipe all data from respective input field.
+
+page.locator("..).nth(0).textContent() -- this will take the css of first item which if has multiple match for locator.
+ you can use .first() or .last() methods too for first and last element
+
+--.allTextContents() == this will collect all text content as per pagelocator
+
+-- When traversing from he parent to child when finding the x-path, use :: parentname space child name.
+
+--- .waitForLoadState()  : it will wait for somthing we need to wait for it get loaded.
+in bracket we can choose which type of method get loaded.   :: usefull for the service based apps.
+
+
+-- .waitForNavigation()  ::  This will wait for thenavigation like when we have test to click the submit button.
+ we need to wrap these two steps into the block of the promise.
+eg: 
+
+await promise.all(
+[
+	page.waitForNavigation(),
+	signIn.click(),
+
+]
+
+);  :: usefull for non-servce based apps. 
+
+-------
+Dropdwons selection. 
+
+const dropdwon = page.locator('x-path of the dropdown');
+- dropdown.selectOption("option value/name");
+
+--- to see the execution:
+
+- ---page.pausea();  This will open the instructor page with details and execution will pause until you resume it from the instructor window.
+
+-- for Radio buttons you can use to varify if its checked or not.
+ using expect assertion.  ::   .toBeChecked();   or .isChecked();
+
+we can combine, .uncheck() to uncheck any check box.
+- .toBeFalsy /  .toBeTruthy()   for assersation using .isChecked();
+-- when there is link or somthing click, that will open the new window in browser: 
+
+-= eg:  
+test.only('Child window handle', async ({browser}) => {
+
+const context = await browser.newContext();
+const page = await context.newPage();
+await page.goto("landing page");
+const documentLink = page.locator("x-path");
+const [newPage] = await promise.all([
+context.waitForEvent(),
+documentLink.click(),
+])
+
+---
+use of the the codegen:: 
+ we can use this feature to automatically record and generate the test code: 
+
+eg. : npx playwright codegen http://google.com
+
+this will open the google.com an in inspector tool it will show the code to test that page for basic.
+what ever you do on the that page it will record and playback and generate the test code for the same in inspector.. 
+
+----
+Screenshot::: ****
+- open the .config  file, in browser setup code, just add:: 
+screenshot : 'on';  this will capture screenshot for every action you performing. 
+----
+Trace : 
+
+if you want to trace for detail report, just add: 
+trace : 'on',   or trace: 'retain on failure'  = this will only generate traces for failed test case, to prevent taking screenshot of every cases.
+
+-----------
+.isVisible()
+= it return true if the there is any match on the page for the same.
+
+const bool =  await page.locator("h3:has-text('XYZ')").isVisible() 
+= this will look for the text with xyz in h3 heading if it is visible and store the true and fals in the bool parameter.
+
+---------
+.waitFor()   = this method will wait until that locator is get loaded in the page.
+
+---
+.type('xyz') ==  in typing we can use delay so if somtimes we need suggestoins to select that comes when we type slowely in typebox.
+.type('xyz',{delay:100}); this will slow down the playwrite typing speed in the text box.
+
+-------------------------
+await page.goto('https://demoqa.com/');
+  await page.locator('div').filter({ hasText: /^Elements$/ }).nth(2).click();
+  await page.getByText('Text Box').click();
+  await page.getByText('Check Box').click();
+  await page.getByText('Home').click();
+  await page.getByLabel('Toggle').click();
+  await page.locator('label').filter({ hasText: 'Home' }).locator('path').first().click();
+  await page.locator('label').filter({ hasText: 'Documents' }).getByRole('img').first().click();
+  await page.getByText('Radio Button').click();
+  await page.getByText('Impressive').click();
+  await page.getByText('Web Tables').click();
+  await page.getByText('Buttons').click();
+
+------------------------------------------------------------------Div Table  ------------------
+//div[@class="ReactTable -striped -highlight"]//div[@role="row"]/div[2]   === column
+//div[@class="ReactTable -striped -highlight"]: This part selects a div element with the class attribute set to "ReactTable -striped -highlight." This assumes that the table you want to interact with has this class. If your table has a different class or identifier, you should modify this part accordingly.
+
+//div[@role="row"]: This part selects all div elements that have a role attribute with the value "row." In some cases, tables are implemented using div elements with specific roles, so this helps to target those rows.
+
+div[1]: This part selects the first div element within each row. It effectively represents the first column of the table because, in HTML tables, each div element within a row corresponds to a column.
+------------
+
+//div[@class='rt-tbody']/div[@class='rt-tr-group'][1]/div[@role='row']   === Row
+//div[@class='rt-tbody']/div[@class='rt-tr-group'][1]/div[@role='row']/div[@role='gridcell']  === for seperate row elements
+
+//div[@class='rt-tbody']/div[@class='rt-tr-group'][1]/div[@role='row']/div[1]  ======= Specific element
+page.locator(`div.rt-tbody > div.rt-tr-group:nth-child(${i}) > div[role="row"] > div:nth-child(1)`)
+
+
+https://demoqa.com/
+
+////////////////////////////////////////////////////////  Page object  ////////////////////////////////////
+-- create a folder in parent project for page object.
+under this project create a page object file.js for each page , like login page sign in page, dashboard page etc.
+-- in page object class create a constructor that contains page itself and the locator declaration for perticular test page class.
+We can say that we are just storing the locator in one variable. If there is some chain of action that needs locator  you can write in it in page object other method directly there is no harm to do so.
+eg. : this.product = page.locator("dfasdf");
+
+-- this. refers to the current class variable that is availble all over that perticular class.
+--- Page object file should not have the data like usename, password.  this information should be transfered from the test file.
+-- we can pass the parameters from test file to the page object file.
+-- need to export this page object so that it can be avaiable to the public.  eg:  module.exports = {DemoqaPage};
+
+-- logic for this is : create a class, first method will be constructor - create a variables for locators.  in different methods in that class use those variables
+to perform an actions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
