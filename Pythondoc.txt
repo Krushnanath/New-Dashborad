@@ -1,0 +1,403 @@
+indentation is most important. 
+- loops and function blocks also work in alinments .
+- Escape sequence charactor: \n to enter in new line direct to the new line will not work for if writing a continue statements
+- comment:   #this is the line comment.
+- Multi line comment::  '''          this is the multiline comment  '''  or you can use '' double quote 3 times too """
+you can use triple quotes to print the multiline string too.
+
+- Escape sequence charactor:
+ if we want to print the eg: " this in the print statment need to use \ before any charactor that are not available to use direclty. 
+eg:  print("Hello this is \"moon\" to the sun")  ::: Output :  Hello this is "moon" to the sun
+
+- seprator : print("hello", 2 ,3, sep="~")  output with include ~ as seperator. defualt sep is speace.
+- end="asdf" :: this will come in the end of the print statment and next line will start from there itself. by default end is \n that is new line.
+  a= 10
+- Type of variable ::  type(a)
+
+- list = []    :: collection of same of diff datatype variables.
+
+- tupple = ( .... )  :: same as list only it is immutable, can't be change 
+
+-dictionary = { ... : .. , ... : ...}  :: collection of key and value pairs.
+- all things in the python is object, eg:  list, type etc. 
+
+- Type casting::
+
+eg. from string to integer :   a= "2"  
+b="4" 
+print(int(a) + int(b))
+--------------------------------------
+taking input from user::
+
+a= input("Enter your name")   ## when you are taking input from user, by default it will take it as a  "String".	
+print(a)
+-----------------------------------------
+string: 
+--
+
+it will act like an array of charactors.  you can print then using index too.
+eg: name = "Mohan"
+print(name[0])    :: o/p - M
+
+- looping through the string: 
+for charactor in name:
+      print(charactor)
+---- indexing in strings: 
+print(names[0:5])   === print from 0 index to 5 index  it's like slicing the stirng
+In this name[0:-3]  === here start from 0 index and total length -3 index stop
+-Minus idexing here will sub from the total length by default.
+--- length of the string ::: len(name)
+ eg: name = "Kishan!!!"
+-- strings are immutable as we can't change them directly.  but we can clone and chnage it.
+-- To upper case :        name.upper()
+-- To lower case :        name.lower()
+-- To remove specific char  from end only we can use strip :            name.rstrip("!")
+-- To replace specific chars ::          name.replace("Kishan","Krishna")
+-- Create a seperate list from string using specific occurance:              name.split(",")  :: 0/p- eg.  name = "Kishan,krishna"  :: ['Kishan', 'krishna']
+-- Make first char capital and all other chars to lower :                    name.capitalize()
+-- To get the string to the center :    name.center(50)
+-- To find out if string ends with specific char returns true:       name.endswith("!!")
+- can make it more specific by providing index:  name.endswith("s", 2, 5)  :- this will assume that string is from 2 to 5 index 
+-- To find 1st occurance chars in string:     name.find("s")  :- returns index number and if not founds returns -1.
+- you can use index("s") method too, but it will give error if not found the occurance.
+--::::: To find is string is alpha nemeric :               name.isalnum()    :: range-  A-Z,a-z,0-9
+-- only for alphabets :  name.isalpha()
+-- Is in lowercase :  name.islower()
+-- isprintable()  : will return false if not printable chars like: \n
+-- isspace()  :: returns true if string contains  only an only white spaces
+-- istitle()  :: returns true if strings has all words starting with capital letter.
+-- startswith("s") :: checks if the strings starts with specific char.
+-- swapcase()  :: converts to upper case to lower and viceversa
+-- title()  :: will convert every words first char to upper case.
+--------------------------------------
+if-else : 
+elif()  for else if
+
+-----------------
+Match case: 
+x=2
+match  x: 
+	case 0: 
+	case 1:
+	case _: #this is the for default case
+	case _ if(x!=30) : # this is another condition for default one we use them too
+--------------------------
+For loop: 
+----------------------
+ for i in name:
+	print(i)
+-------- 
+Range::::::  work on indexing
+for k in range(5):
+	print(k) 
+ 0/p:- will print from 0 to 4
+you can provide indexing too like:  range(1,5)
+-----
+for k in range(1,10,2):
+    print(k)    0/p:- 1
+3
+5
+7
+9
+# here num 2 it specifies the increment (or decrement). By default, it is 1.
+----------------------  While Loop -------------------
+while True:
+    print("Hello")
+    break
+#######
+i=0
+while(i<10):
+    print(i)
+    i+=1
+else:
+    print("Loop is over")   
+## we can use else in the while loop too..
+
+---:::: Python does not have a "do-while" loop construct 
+ we can acheive that functinality by eg: 
+while True:
+    # Code to be executed at least once
+    # ...    
+    # Conditional check
+    if not condition:
+        break
+------------------ contiue and break  ----------------------------
+--- break :-- will exit the the loop 
+-- continue:  will skippp the current itteration
+----------------------  Functions in python
+# function in python
+need to specifiy defination as function so, def to define
+
+def add(a,b):
+    return a+b  
+print(add(2,3))
+--- we can use pass in the funtion if we want to pass that execution, usually used when we are going to write that fun after some time.
+--- we can provide default arguments too in def  :: def add(a=1,b=2)   is there were no arguments passed to fun
+
+-- we can drectly pass args as a tuple to perform the opertaions. :
+eg: 
+def add(*numbers):
+    sum=0
+    for number in numbers:
+        sum+=number
+    return sum
+    
+addition = add(2,3,4)
+print(addition)
+
+eg:
+# same example for dictionary   
+def user(**user):
+    print(user)
+    for key,value in user.items():
+        print("{}:{}".format(key,value))
+user(id=1,name="Rajesh",age=23)
+---------------
+----------List methods  ------------------------
+-- append(7)  :  it will add 7 to end of the list
+# # append()	Adds an element at the end of the list
+# list1.append(10)
+
+# # clear()	Removes all the elements from the list
+# list1.clear()
+
+# # copy()	Returns a copy of the list
+# list1.copy()
+imp:::::::  if just do this:  list2=list1 and if you change the list2 that will change the list1 also so always use copy method.
+
+# # count()	Returns the number of elements occurance with the specified value
+# list1.count(1)
+
+# # extend()	Add the elements of a list (or any iterable), to the end of the current list
+# list1.extend([10,11,12])
+
+-- to contact to list you can use:  L3 = L1 + L2
+
+# # index()	Returns the index of the first occurence element with the specified value
+# list1.index(1)
+
+# # insert()	Adds an element at the specified position
+# list1.insert(1,2023)
+
+# # pop()	Removes the element at the specified position
+# list1.pop(1)
+
+# # remove()	Removes the first item with the specified value
+# list1.remove(1)
+
+# # reverse()	Reverses the order of the list
+# list1.reverse()
+
+# # sort()	Sorts the list
+# list1.sort()
+0r list1.sort(reverse = true)
+
+-------------   Tupple  -------------------------
+ - Similar to list but we cant change the tupple
+- Tupple itmes are seperate by , 
+- for one elesement tup = (1,)
+- we can use negative indexing too.
+
+--------------------- F-String  ----------------------
+# f-string in python
+# name="Rajesh"
+# age=23
+# print(f"Hello {name} your age is {age}")
+above is fstring exmple
+OR-- normally we uses below 
+leter = "Hey my name is {} and my age is {}"
+name="Rajesh"
+age=23
+print(leter.format(name,age))
+--
+leter = "Hey my name is {} and my age is {age:.2f}"
+name="Rajesh"
+print(leter.format(name, age = 25.434)) 
+age will show upto 2 decimle only.
+# print(f"Hello {{name} }your age is{ {age}}")  :: this will print: "Hello {name} your age is {age}"
+
+-------------------- DocStrings :::   -------------
+-- used if want to print the function information for what it does or somthing else....
+should be at the starting of the defination, if not it will act as a comment only.
+eg: 
+#docstring in python
+def add(a,b):
+    '''This function takes two numbers and return their sum'''
+    return a+b
+print(add.__doc__)    #two underscores...
+print(add(2,3))
+0/p: 
+This function takes two numbers and return their sum
+5
+------------------------------------::::::::::::::::::::::::: Set  ::::::::::::::::::::: -------------------
+set1 = {1,2,4,3,2}
+print(set1)  :::: {1,2,4,3} 
+will not take the repeted values, can't change once defined, unstructured, unordered.
+- can't acces using index values.
+- empty set1 = set()
+
+# set operation in python
+# set1={1,2,3,4,5,6,7,8,9}
+# set2={1,2,3,4,5,6,7,8,9,10}
+# print(set1|set2)
+# print(set1&set2)
+# print(set1-set2)
+# print(set1^set2)
+# print(set1<=set2)
+# print(set1>=set2)
+# print(set1<set2)
+# print(set1>set2)
+# print(set1.issubset(set2))
+# print(set1.issuperset(set2))
+# print(set1.isdisjoint(set2))   :: checked if set1 values presents in set2 if no returns true.
+# print(set1.union(set2))
+# print(set1.intersection(set2))   :: similar values from both set
+# print(set1.difference(set2))    :: values are in set1 and not in set2
+# print(set1.symmetric_difference(set2))  :: the values those are not common in both set
+# print(set1.update(set2))   :: will update the set1 with unique values from the set2
+# print(set1.intersection_update(set2))  :: will update the set1 
+# print(set1.difference_update(set2))
+# print(set1.symmetric_difference_update(set2))
+# print(set1.add(10))   ::: add new itme to the set.
+# print(set1.remove(10))   :: remove the item from the set. for item not found it will through an error.
+# print(set1.discard(10))   :: same as remove, if item not found it will not through an error 
+# print(set1.pop())    :: random values will be poped, we can print that item.
+# print(set1.clear())   :: will delete all items from set.
+del(set1)
+# print(set1.copy())
+
+------------------------ Dictionary  :   :::::
+# dictionary in python
+dict1={"name":"Rajesh","age":23,"city":"Hyderabad"}
+print(dict1)
+print(dict1["name"])   # this will through an error if key not found,
+print(dict1.get("name2"))   # this will simply return None if Key not found.
+-
+#to print all keys :::
+print(dict1.keys())
+#iterate using keys ::::
+for key in dict1.keys():
+    print(dict1[key])
+### can print values too like key
+
+--
+#to print all items ::: 
+print(dict1.items())
+#iterate using items ::::
+for key,value in dict1.items():
+    print("{}:{}".format(key,value))
+
+- update : adds new values or concat
+dict1.update(dict2)
+
+# clear method
+# dict1.clear()
+
+# pop method : remove specific element
+# dict1.pop("name")
+# popitem method  : remove last element.
+# dict1.popitem()
+
+# del method
+# del dict1["name"]  :: delete specified element
+# del dict1   :: delete etire dictionary
+
+--------------------- for loop with else ----------------
+-this will work same as if else, if we put a break inside the for loop it will goes to else, here else
+statement is the part of the for loop.
+eg: 
+for i in range(6):
+    print(i)
+    
+else:
+    print("Loop is over")
+--eg: 
+for i in range(6):
+    print(i)
+    if i==4:
+        break
+else:
+    print("Loop is over") 
+--here else will not execute as for loop is exiting the loop using break. 
+
+------------------------- Error handling in python --------------------------------
+
+# error handling in python
+# try:
+#     print(2/0)
+# except ZeroDivisionError:
+#     print("You can't divide by zero")
+# except:
+#     print("Something went wrong")
+# finally:
+#     print("This will run no matter what")
+--
+# try:
+#     print(2/0)
+# except:
+#     print("Something went wrong")
+# else:
+#     print("Nothing went wrong")
+# finally:
+#     print("This will run no matter what")
+
+-
+custome error
+
+- 
+def test_value(x):
+#     if x>100:
+#         raise ValueTooHighError("Value is too high")
+#     if x<5:
+#         raise ValueTooSmallError("Value is too small",x)
+# try:
+#     test_value(1)
+# except ValueTooHighError as e:
+#     print(e)
+# except ValueTooSmallError as e:
+#     print(e.message,e.value)
+# else:
+#     print("Nothing went wrong")
+# finally:
+#     print("This will run no matter what")
+
+------------------ Shorthand if else  ---------------------
+
+#shorthand if else
+# a=2
+# b=3
+# if a>b:print("a is greater than b")
+# print("A") if a>b else print("B")
+# print("A") if a>b else print("=") if a==b else print("B")
+
+------------------- Enumerate ----------------------------------
+# enumerate function in python
+# list1=["Rajesh","Ramesh","Suresh","Mahesh"]
+# for index,value in enumerate(list1):    index by default will start at 0
+#     print(index,value)
+eg:
+# for index,value in enumerate(list1,start=1):  #index will start at 1
+#     print(index,value)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

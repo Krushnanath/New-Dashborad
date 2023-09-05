@@ -2,6 +2,7 @@
 
 
 create new project:::: npx create-playwright test-project
+Run test ::  npx playwright test 
 
 username.fill("") ::  works same as .type however, empty string will wipe all data from respective input field.
 
@@ -136,7 +137,22 @@ eg. : this.product = page.locator("dfasdf");
 -- need to export this page object so that it can be avaiable to the public.  eg:  module.exports = {DemoqaPage};
 
 -- logic for this is : create a class, first method will be constructor - create a variables for locators.  in different methods in that class use those variables
-to perform an actions.
+to perform an actions. Import the page object file in the test file, create an object of the class of that page object file and use it to access there child methods.
+
+/////////// Page object manager  
+
+-- this .js file. 
+--create a class 
+- under this class create a constructor and within it declare all page object that needs to be declared in the test file.
+eg. this.loginPage = new LoginPage(page);
+-at the begining of the code, add requre for all required page object files.
+eg.  const{loginPage} = require ('./LoginPage')
+- add methods for each object 
+eg. getLogin page {
+return this.loginPage;
+
+-- import this page object manager file in the test file.
+eg: const{POManager= require ('./LoginPage')
 
 
 

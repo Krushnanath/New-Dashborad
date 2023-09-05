@@ -1,4 +1,12 @@
-To use the conditions in between:
+command to create new react project
+
+:- npx create-react-app my-app
+cd my-app
+npm start
+
+
+
+//////////To use the conditions in between:
 
 {item.length === 0 ? <p>No items.</p> : null}
 or {item.length === 0 && <p>No item found</p>}
@@ -93,6 +101,18 @@ npm install @mui/icons-material
 --if still not working properly try below for the mui iocon:
 npm install @emotion/react @emotion/styled
 ------------------
+two classed: 
+className={`iconSection ${selectedItem === 0 ? "selected" : ""}`}
+className={selectedItem === 3 ? "selected" : window.location.pathname === '/contactInformation' ? "selected" :  ""}
+
+width cal:
+
+max-height: calc(100vh - 139px);
+---------------
+ Bar chart:
+To import data and show it as a bar chart in a React application, you can use libraries like react-chartjs-2 and axios for fetching data.
+npm install react-chartjs-2 chart.js axios
+--
 
 
 
